@@ -28,7 +28,7 @@
     
     ![image](https://user-images.githubusercontent.com/73687292/205603056-bc624c0e-bdd7-4708-a7ca-67daa06224ab.png)
     ![image](https://user-images.githubusercontent.com/73687292/205622146-c011c7d4-6d76-4e6e-9562-24682e08cd48.png)
-    ```yacc
+    ```c
     if(exist == 0){// if not exist,create new node and put address in Varstack,then connect the newnode and Gpar
           newnode=malloc(sizeof(struct Node));
           newnode->var = $1;
@@ -49,7 +49,7 @@
     ```
     
 * **Create the Node**
-    ```yacc
+    ```c
     void createnode(char* type,int num){//create the node and give its type and number
           if(strcmp(type,"var"))newnode=malloc(sizeof(struct Node));//if is "var" ,dont malloc,else create new node
           newnode->work = type; 
@@ -62,7 +62,7 @@
      }
     ```
 * **Connect Child & Parent**
-    ```yacc
+    ```c
     void Puttostack(){//put in the parent's childs stack then connect
        Gpar->Childs=Gpar->Childs+1; 
        /* printf("the childsize of Gpar is %d \n",Gpar->Childs); */
@@ -73,7 +73,7 @@
     ```
     
 * **Setting the Node & Move `Gpar` to `newnode`**
-    ```yacc
+    ```c
     void setnode(char* work){ //give the node its work
       if(strcmp(newnode->work,"(")){
         printf("syntax error\n");
@@ -135,8 +135,16 @@
     ![image](https://user-images.githubusercontent.com/73687292/205621367-731eb1b9-7caa-477e-a47f-352d7dfda4fe.png)
 
 * **Variable Define**
-* ****
+    After defining a variable first, you can call and give a value in another tree. In addition, you can define multiple variables and add them together.
+    ![image](https://user-images.githubusercontent.com/73687292/205635317-b76cd1db-ff65-4b59-b36c-eba7b702be48.png)
+    
+* **Function**
+    Similar to `define`.  With fixed format `funcname` `var_list` `function` `crossponding var's value`. If meet `func()`, return var's value directly.
+    ![image](https://user-images.githubusercontent.com/73687292/205636537-14a25ba4-b8da-4574-99e3-5701adb3ed12.png)
 
+* **Named Function**
+    Use `define` to define `fun`. Judge the var is `fun` or simply `define` at "id". Also can call multiply `fun`, and classify it's normal `fun` or continous `fun` at $RP$.
+    ![image](https://user-images.githubusercontent.com/73687292/205637299-57a4dbe1-86ea-4b96-84c4-2c4aef4ba8cb.png)
 
 wrriten by corn2021/01/05
 modify by corn2022/12/05
