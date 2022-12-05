@@ -21,12 +21,33 @@
 
 ## Implementation
 * **How to count**
-    I use `Node` to build the tree. After constructing the tree, track back the tree with result value of child tree.
-
-* **Important Node**
-    Mainly use these three `stucrt Node` to build the tree.
+    Use `Node` to build the tree. After constructing the tree, track back the tree with result value of child tree.
+    Use `Varstacj` to store all variable's `id`. Then use `Varpointer` to find if it exist.
+    If the var isn't in the stack, then create one and push into the stack.
+    Else, pass the index of the stack where the variable exist to `Gpar`
     
     ![image](https://user-images.githubusercontent.com/73687292/205603056-bc624c0e-bdd7-4708-a7ca-67daa06224ab.png)
+    ![image](https://user-images.githubusercontent.com/73687292/205622146-c011c7d4-6d76-4e6e-9562-24682e08cd48.png)
+    ```yacc
+    if(exist == 0){// if not exist,create new node and put address in Varstack,then connect the newnode and Gpar
+          newnode=malloc(sizeof(struct Node));
+          newnode->var = $1;
+          newnode->work = "var";
+          newnode->Childs = -1;
+          Varstack[++Varpointer]= newnode;
+          Gpar->Childs=Gpar->Childs+1; 
+          Gpar->Child[Gpar->Childs] = newnode;
+          newnode->Par=Gpar;
+      }else{//for fun call
+         for(i=0;i<=Varpointer;i++){
+            if(!strcmp(Varstack[i]->var,$1)){//if the var is in stack, connect the child node to exist var address
+                Gpar->Childs=Gpar->Childs+1;
+                Gpar->Child[Gpar->Childs] = Varstack[i];
+            }
+         }
+      }
+    ```
+    
 * **Create the Node**
     ```yacc
     void createnode(char* type,int num){//create the node and give its type and number
@@ -80,6 +101,10 @@
 * **Example of how it works**
   * EX : (print-num(+ 1 2 3))
     ![image](https://user-images.githubusercontent.com/73687292/205605979-d3211ae0-b5d1-48eb-ae19-60d4bc11623f.png)
+  * EX : (define y(+ 1 2 3))
+         (print-num y)
+    ![image](https://user-images.githubusercontent.com/73687292/205633032-8e887de2-1450-4cb3-8cf6-fc93d6ce566d.png)
+
 
 ## Final Result
 * **Syntax Validatioin**
@@ -104,8 +129,13 @@
     ![image](https://user-images.githubusercontent.com/73687292/205608359-dd20d035-4741-4248-a912-44b8418806c6.png)
 
 * **IF Expression**
+    When meeting the keyword `if`,  judge the condition first. If the condition is $True$, print the front expressioin. Else, print the other one.
+    Also, the Expression can be a operand or the computation.
+
+    ![image](https://user-images.githubusercontent.com/73687292/205621367-731eb1b9-7caa-477e-a47f-352d7dfda4fe.png)
+
 * **Variable Define**
-* 
+* ****
 
 
 wrriten by corn2021/01/05
